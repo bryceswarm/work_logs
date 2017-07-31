@@ -21,12 +21,15 @@ class Search:
                 self.results.append(row)
 
     def exact_date(self):
+        clear_screen()
         count = 1
+        print('The following tasks are available for view:')
         for row in self.results:
             print('{}. {}'.format(count, row['date']))
             count += 1
         selected_date = input('Which entry would you like to view?\n'
                               '> ')
+        clear_screen()
         try:
             selected_date = int(selected_date)
         except ValueError:
@@ -47,10 +50,13 @@ class Search:
         clear_screen()
         print(task)
         input('Press any key to continue')
+        clear_screen()
 
     def exact_input(self, search_string):
+        clear_screen()
         input_results = []
         count = 1
+        print('The following tasks are available for view:')
         for row in self.results:
             if search_string in row['task_name'].lower() \
                     or search_string in row['notes'].lower():
@@ -60,6 +66,7 @@ class Search:
             count += 1
         selected_task = input('Which entry would you like to view?\n'
                               '> ')
+        clear_screen()
         try:
             selected_task = int(selected_task)
         except ValueError:
@@ -77,11 +84,14 @@ class Search:
                     input_results[selected_task - 1]['time_elapsed'],
                     input_results[selected_task - 1]['notes'],
                     )
+        clear_screen()
         print(task)
         input('Press any key to continue')
+        clear_screen()
 
     def input_pattern(self):
         # print task matching regex pattern
+        clear_screen()
         while True:
             search_pattern = input('Search regex pattern, press "Q" to quit: ')
             input_results = []
@@ -94,11 +104,13 @@ class Search:
                         re.search(r'{}'.format(search_pattern), row['notes'])):
                     input_results.append(row)
             if input_results:
+                print('The following tasks are available for view:')
                 for row in input_results:
                     print('{}. {}'.format(count, row['task_name']))
                     count += 1
                 selected_task = input('Which entry would you like to view?\n'
                                       '> ')
+                clear_screen()
             else:
                 clear_screen()
                 print("No matches found for '{}' in Task Name or Notes"
@@ -122,6 +134,8 @@ class Search:
                         input_results[selected_task - 1]['time_elapsed'],
                         input_results[selected_task - 1]['notes'],
                         )
+            clear_screen()
             print(task)
             break
         input('Press any key to continue')
+        clear_screen()

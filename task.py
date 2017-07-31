@@ -1,7 +1,5 @@
-import random
-import string
 import csv
-import datetime
+
 
 class Task:
     def __init__(self, date, first_name, last_name, task_name,

@@ -97,6 +97,7 @@ def menu():
             print('Added Task!\n')
             print(task)
             input('\nPress any key to continue.')
+            clear_screen()
         elif menu_select == '1':
             clear_screen()
             search_menu()
