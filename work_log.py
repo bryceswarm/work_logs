@@ -48,7 +48,7 @@ def new_task():
     time_elapsed = None
     while not time_elapsed:
         try:
-            time_elapsed = int(input('How much time was spent on the task?' 
+            time_elapsed = int(input('How much time was spent on the task?'
                                      ' (Whole minutes)\n> '))
         except ValueError:
             print('That is not a valid entry')
@@ -58,7 +58,12 @@ def new_task():
     notes = input('Please enter any additional notes.\n> ')
     # record date of entry
     date = datetime.datetime.today().strftime(time_format)
-    task = Task(date, first_name, last_name, task_name, str(time_elapsed), notes)
+    task = Task(date,
+                first_name,
+                last_name,
+                task_name,
+                str(time_elapsed),
+                notes)
     # save entry to csv
     task.save_entry()
     return task

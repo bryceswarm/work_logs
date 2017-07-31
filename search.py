@@ -21,6 +21,7 @@ class Search:
                 self.results.append(row)
 
     def exact_date(self):
+        """Provides list of tasks by date and allows you to choose one"""
         clear_screen()
         count = 1
         print('The following tasks are available for view:')
@@ -53,6 +54,8 @@ class Search:
         clear_screen()
 
     def exact_input(self, search_string):
+        """Provides list of tasks by your search term
+           and allows you to choose one"""
         clear_screen()
         input_results = []
         count = 1
@@ -90,7 +93,8 @@ class Search:
         clear_screen()
 
     def input_pattern(self):
-        # print task matching regex pattern
+        """Provides list of tasks matching a regular expression user input
+         and allows you to choose one"""
         clear_screen()
         while True:
             search_pattern = input('Search regex pattern, press "Q" to quit: ')
@@ -100,7 +104,8 @@ class Search:
                 break
 
             for row in self.results:
-                if (re.search(r'{}'.format(search_pattern), row['task_name']) or
+                if (re.search(r'{}'.format(search_pattern),
+                        row['task_name']) or
                         re.search(r'{}'.format(search_pattern), row['notes'])):
                     input_results.append(row)
             if input_results:

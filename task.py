@@ -3,7 +3,7 @@ import csv
 
 class Task:
     def __init__(self, date, first_name, last_name, task_name,
-                 time_elapsed, notes=None, id=None, **kwargs):
+                 time_elapsed, notes=None):
         self.first_name = first_name
         self.last_name = last_name
         self.time_elapsed = time_elapsed
