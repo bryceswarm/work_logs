@@ -4,16 +4,14 @@ import csv
 import datetime
 
 class Task:
-    time_format = ('%m/%d/%y')
-
-    def __init__(self, first_name, last_name, task_name,
+    def __init__(self, date, first_name, last_name, task_name,
                  time_elapsed, notes=None, id=None, **kwargs):
         self.first_name = first_name
         self.last_name = last_name
         self.time_elapsed = time_elapsed
-        self.date = datetime.datetime.today().strftime(self.time_format)
         self.notes = notes
         self.task_name = task_name
+        self.date = date
 
         if id:
             self.id = id
@@ -26,11 +24,12 @@ class Task:
             'task_name',
             'time_elapsed',
             'notes',
-            'date'
+            'date',
         ]
 
 
     def __str__(self):
+        """Prints out readable task request"""
         str_fmt = ('Date: {}\n'
                    'Task Name: {}\n'
                    'First Name: {}\n'
@@ -43,6 +42,7 @@ class Task:
 
 
     def save_entry(self):
+        """Saves tasks to csv file"""
         with open('work_logs.csv', 'a', newline='') as log_file:
             writer = csv.DictWriter(log_file, fieldnames=self.fields)
             writer.writerow({
@@ -52,11 +52,12 @@ class Task:
                 'task_name' : self.task_name,
                 'time_elapsed' : self.time_elapsed,
                 'notes' : self.notes,
-                'date' : self.date
+                'date' : self.date,
             })
 
 
     def get_id(self):
+        """adds unique identifier to each task"""
         id_list = []
         with open('work_logs.csv', 'r') as log_file:
             reader = csv.DictReader(log_file)
