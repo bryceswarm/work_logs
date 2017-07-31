@@ -11,6 +11,7 @@ def clear_screen():
         more efficiently."""
     os.system('cls' if os.name == 'nt' else 'clear')
 
+
 class Search:
     def __init__(self):
         self.results = []
@@ -29,6 +30,11 @@ class Search:
         try:
             selected_date = int(selected_date)
         except ValueError:
+            clear_screen()
+            print('That is not a valid selection')
+            return self.exact_date()
+        if selected_date <= 0 or selected_date > count:
+            clear_screen()
             print('That is not a valid selection')
             return self.exact_date()
         task = Task(self.results[selected_date - 1]['date'],
@@ -40,8 +46,7 @@ class Search:
                     )
         clear_screen()
         print(task)
-        return task
-
+        input('Press any key to continue')
 
     def exact_input(self, search_string):
         input_results = []
@@ -58,6 +63,11 @@ class Search:
         try:
             selected_task = int(selected_task)
         except ValueError:
+            clear_screen()
+            print('That is not a valid selection')
+            return self.exact_input(search_string)
+        if selected_task <= 0 or selected_task > count:
+            clear_screen()
             print('That is not a valid selection')
             return self.exact_input(search_string)
         task = Task(input_results[selected_task - 1]['date'],
@@ -68,8 +78,50 @@ class Search:
                     input_results[selected_task - 1]['notes'],
                     )
         print(task)
+        input('Press any key to continue')
 
+    def input_pattern(self):
+        # print task matching regex pattern
+        while True:
+            search_pattern = input('Search regex pattern, press "Q" to quit: ')
+            input_results = []
+            count = 1
+            if search_pattern.upper() == 'Q':
+                break
 
-    def input_pattern(self, search_string):
-        #print task matching regex pattern
-        pass
+            for row in self.results:
+                if (re.search(r'{}'.format(search_pattern), row['task_name']) or
+                        re.search(r'{}'.format(search_pattern), row['notes'])):
+                    input_results.append(row)
+            if input_results:
+                for row in input_results:
+                    print('{}. {}'.format(count, row['task_name']))
+                    count += 1
+                selected_task = input('Which entry would you like to view?\n'
+                                      '> ')
+            else:
+                clear_screen()
+                print("No matches found for '{}' in Task Name or Notes"
+                      "".format(search_pattern))
+                break
+
+            try:
+                selected_task = int(selected_task)
+            except ValueError:
+                clear_screen()
+                print('That is not a valid selection')
+                return self.exact_input(search_pattern)
+            if selected_task <= 0 or selected_task > count:
+                clear_screen()
+                print('That is not a valid selection')
+                return self.exact_input(search_pattern)
+            task = Task(input_results[selected_task - 1]['date'],
+                        input_results[selected_task - 1]['first_name'],
+                        input_results[selected_task - 1]['last_name'],
+                        input_results[selected_task - 1]['task_name'],
+                        input_results[selected_task - 1]['time_elapsed'],
+                        input_results[selected_task - 1]['notes'],
+                        )
+            print(task)
+            break
+        input('Press any key to continue')

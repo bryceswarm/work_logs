@@ -13,9 +13,8 @@ from task import Task
 from search import Search
 
 
-time_format = ('%m/%d/%y')
+time_format = '%m/%d/%y'
 fields = [
-    'id',
     'first_name',
     'last_name',
     'task_name',
@@ -30,6 +29,7 @@ def clear_screen():
     """ Clears the command screen for next prompts to be displayed
         more efficiently."""
     os.system('cls' if os.name == 'nt' else 'clear')
+
 
 # record new task submissions
 def new_task():
@@ -122,8 +122,7 @@ def search_menu():
             search_string = input('Search query: ').lower()
             search.exact_input(search_string)
         elif menu_select == '3':
-            search_string = input('Search query: ')
-            search.input_pattern(search_string)
+            search.input_pattern()
         elif menu_select == '4':
             clear_screen()
             menu()
